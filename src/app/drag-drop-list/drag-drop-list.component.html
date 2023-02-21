@@ -1,5 +1,25 @@
 <div class="wrapper">
-  <div cdkDropList class="movie-list" (cdkDropListDropped)="drop($event)">
-    <div class="movie-block" *ngFor="let item of bucketList" cdkDrag>{{item}}</div>
-  </div>
+  <mat-tab-group>
+    <mat-tab label="Drag Drop in list">
+      <div cdkDropList class="movie-list" (cdkDropListDropped)="drop($event)">
+        <div class="movie-block" *ngFor="let item of bucketList" cdkDrag>{{item}}</div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Drag Drop between two Lists">
+      <div class="container">
+        <h2>버킷리스트</h2>
+        <div cdkDropList #moviesList="cdkDropList" [cdkDropListData]="todo"
+             [cdkDropListConnectedTo]="[doneMovieList]" class="movie-list" (cdkDropListDropped)="onDrop($event)">
+          <div class="movie-block" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+        </div>
+      </div>
+      <div class="container">
+        <h2>완료</h2>
+        <div cdkDropList #doneMovieList="cdkDropList" [cdkDropListData]="done"
+             [cdkDropListConnectedTo]="[moviesList]" class="movie-list" (cdkDropListDropped)="onDrop($event)">
+          <div class="movie-block" *ngFor="let item of done" cdkDrag>{{item}}</div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
